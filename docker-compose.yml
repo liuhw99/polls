@@ -40,25 +40,17 @@ services:
 
   # Database Service (Mysql)
   db:
+    restart: always
+    command: mysqld --default-authentication-plugin=mysql_native_password
     image: mysql:8.0.11
+    environment:
+      MYSQL_ROOT_PASSWORD: 'callicoder'
+      MYSQL_DATABASE: 'polls'
     ports:
       - "3306:3306"
-    restart: always
-    environment:
-      MYSQL_DATABASE: polls
-      MYSQL_USER: callicoder
-      MYSQL_PASSWORD: callicoder
-      MYSQL_ROOT_PASSWORD: root
     volumes:
       - db-data:/var/lib/mysql
-    networks:
-      - backend  
-  
+
 # Volumes
 volumes:
   db-data:
-
-# Networks to be created to facilitate communication between containers
-networks:
-  backend:
-  frontend:    
